@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      width: 220px;
+      margin: 0;
+      padding: 0;
+      font-family: 'Outfit', sans-serif;
+      overflow: hidden;
+      color: white;
+      background: #0f0c29;
+      /* Fallback */
+    }
+
+    /* Liquid Background Animation */
+    .liquid-bg {
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #000000);
+      background-size: 400% 400%;
+      animation: liquid 15s ease infinite;
+      z-index: -1;
+    }
+
+    @keyframes liquid {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .glass-card {
+      margin: 0;
+      padding: 20px 15px;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 0;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .header {
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0;
+      margin-bottom: 5px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      font-size: 10px;
+      font-weight: 300;
+      opacity: 0.8;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .control-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      padding: 5px 0;
+    }
+
+    .label {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Smooth Toggle Switch */
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      background: white;
+      border-radius: 50%;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-switch.enabled {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .toggle-switch.enabled::after {
+      left: 22px;
+      background: #23a6d5;
+    }
+
+    .status {
+      font-size: 11px;
+      font-weight: 300;
+      margin-bottom: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #ff4444;
+      box-shadow: 0 0 8px #ff4444;
+      border-radius: 50%;
+      margin-right: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .status-dot.active {
+      background: #00ff88;
+      box-shadow: 0 0 8px #00ff88;
+    }
+
+    .footer {
+      font-size: 9px;
+      opacity: 0.6;
+      margin-top: 10px;
+    }
+
+    .author {
+      font-weight: 700;
+      color: #00e5ff;
+      text-decoration: none;
+      display: inline-block;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+        text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+      }
+
+      50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 15px rgba(0, 229, 255, 0.8), 0 0 20px rgba(0, 229, 255, 0.4);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="liquid-bg"></div>
+
+  <div class="glass-card">
+    <div class="header">
+      <h1>Location Flag</h1>
+    </div>
+
+    <div class="control-panel">
+      <div class="toggle-switch" id="toggleSwitch"></div>
+    </div>
+
+    <div class="status">
+      <span class="status-dot active"></span>
+      <span id="status">System Operational</span>
+    </div>
+
+    <div class="footer">
+      Designed by <a href="https://github.com/ayoubboto" target="_blank" class="author">ayouboto</a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
