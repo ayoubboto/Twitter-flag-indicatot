@@ -5,8 +5,8 @@ const CACHE_EXPIRY_DAYS = 30;
 const requestQueue = [];
 let isProcessingQueue = false;
 let lastRequestTime = 0;
-const MIN_REQUEST_INTERVAL = 2000;
-const MAX_CONCURRENT_REQUESTS = 2;
+const MIN_REQUEST_INTERVAL = 500;
+const MAX_CONCURRENT_REQUESTS = 5;
 let activeRequests = 0;
 let rateLimitResetTime = 0;
 
@@ -433,7 +433,11 @@ async function addFlagToUsername(usernameElement, screenName) {
   usernameElement.dataset.flagAdded = 'processing';
   processingUsernames.add(screenName);
 
-  const userNameContainer = usernameElement.querySelector('[data-testid="UserName"], [data-testid="User-Name"]');
+  let userNameContainer = usernameElement.querySelector('[data-testid="UserName"], [data-testid="User-Name"]');
+
+  if (!userNameContainer && (usernameElement.getAttribute('data-testid') === 'UserName' || usernameElement.getAttribute('data-testid') === 'User-Name')) {
+    userNameContainer = usernameElement;
+  }
 
   const shimmerSpan = createLoadingShimmer();
   let shimmerInserted = false;
@@ -589,7 +593,14 @@ async function addFlagToUsername(usernameElement, screenName) {
     flagImg.style.objectFit = 'contain';
     flagImg.style.borderRadius = '2px';
 
-    const containerForFlag = userNameContainer || usernameElement.querySelector('[data-testid="UserName"], [data-testid="User-Name"]');
+    let containerForFlag = userNameContainer;
+    if (!containerForFlag) {
+      containerForFlag = usernameElement.querySelector('[data-testid="UserName"], [data-testid="User-Name"]');
+    }
+
+    if (!containerForFlag && (usernameElement.getAttribute('data-testid') === 'UserName' || usernameElement.getAttribute('data-testid') === 'User-Name')) {
+      containerForFlag = usernameElement;
+    }
 
     if (!containerForFlag) {
       console.error(`Could not find UserName container for ${screenName}`);
